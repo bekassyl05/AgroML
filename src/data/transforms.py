@@ -1,6 +1,4 @@
-# src/data/transforms.py
 import albumentations as A
-from albumentations.pytorch import ToTensorV2
 
 from src.config import cfg
 
@@ -16,7 +14,6 @@ def get_train_transforms() -> A.Compose:
         A.Rotate(limit=30, p=0.5),
         A.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1, p=0.5),
         A.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
-        ToTensorV2(),
     ])
 
 
@@ -24,10 +21,8 @@ def get_val_transforms() -> A.Compose:
     return A.Compose([
         A.Resize(cfg.IMAGE_SIZE, cfg.IMAGE_SIZE),
         A.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
-        ToTensorV2(),
     ])
 
 
 def get_test_transforms() -> A.Compose:
-    # identical to val transforms
     return get_val_transforms()

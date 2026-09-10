@@ -44,8 +44,9 @@ class Predictor:
     def _preprocess(self, image: Image.Image) -> np.ndarray:
         image_np = np.array(image.convert("RGB"))
         augmented = self.transform(image=image_np)
-        tensor = augmented["image"]  # torch.Tensor, shape (3, H, W)
-        batch = tensor.unsqueeze(0).numpy().astype(np.float32)  # (1, 3, H, W)
+        image_hwc = augmented["image"]  # numpy HWC, normalized
+        image_chw = np.transpose(image_hwc, (2, 0, 1)).astype(np.float32)
+        batch = np.expand_dims(image_chw, axis=0)  # (1, 3, H, W)
         return batch
 
     @staticmethod

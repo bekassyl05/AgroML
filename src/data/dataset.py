@@ -28,6 +28,7 @@ class PlantVillageDataset(Dataset):
     def __len__(self) -> int:
         return len(self.samples)
 
+    # __getitem__ функциясын осылай ауыстыр
     def __getitem__(self, idx: int):
         filepath, label = self.samples[idx]
 
@@ -38,9 +39,12 @@ class PlantVillageDataset(Dataset):
 
         if self.transform is not None:
             augmented = self.transform(image=image)
-            image_tensor = augmented["image"]
+            image_hwc = augmented["image"]  # numpy array, HWC, normalized
         else:
-            image_tensor = torch.from_numpy(image).permute(2, 0, 1).float()
+            image_hwc = image.astype("float32")
+
+        image_chw = np.transpose(image_hwc, (2, 0, 1)).astype(np.float32)
+        image_tensor = torch.from_numpy(image_chw)
 
         return image_tensor, label
 
