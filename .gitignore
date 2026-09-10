@@ -1,0 +1,34 @@
+# Virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+
+# Training artifacts (тым үлкен, GitHub-қа қажет емес)
+models_store/checkpoints/
+logs/
+
+# Raw/processed data (тым үлкен, ONNX модель үшін керек емес)
+data/raw/
+data/processed/
+
+# ONNX модель мен test.csv — БҰЛАРДЫ ЕШҚАШАН .gitignore-ге қоспа,
+# өйткені Render deployment-те осылар керек болады:
+# models_store/onnx/  <- қосылмайды
+# data/splits/test.csv  <- қосылмайды
+
+# OS
+.DS_Store
+Thumbs.db
+
+# pytest
+.pytest_cache/
