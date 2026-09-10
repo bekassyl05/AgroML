@@ -7,4 +7,3 @@ numpy==1.26.4
 Pillow==10.4.0
 opencv-python-headless==4.10.0.84
 albumentations==1.4.18
-albucore==0.0.19
